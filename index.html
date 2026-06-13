@@ -835,6 +835,7 @@ nav.solid {
   height: 100%;
   filter: saturate(0.92) brightness(0.82);
   transition: filter 0.22s ease, transform 0.22s ease;
+  transform-origin: center;
 }
 .flag-item:hover .flag-shell svg {
   filter: saturate(1.12) brightness(1.06);
@@ -863,8 +864,6 @@ nav.solid {
   line-height: 1.8;
   font-style: italic;
 }
-.martial-copy p strong,
-.about-body p strong { color: var(--text); }
 .timeline { display: flex; flex-direction: column; }
 .tl {
   display: flex;
@@ -1058,22 +1057,22 @@ footer {
   <section id="hero">
     <div class="hero-bg-text" aria-hidden="true">SIRJOLLY</div>
     <div class="hero-scene" aria-hidden="true">
-      <div class="float-shape a"></div>
-      <div class="float-shape b"></div>
-      <div class="float-shape c"></div>
+      <div class="float-shape a" data-depth="0.12"></div>
+      <div class="float-shape b" data-depth="0.18"></div>
+      <div class="float-shape c" data-depth="0.08"></div>
     </div>
     <div class="hero-grid">
       <div class="hero-copy">
-        <div class="hero-status r go">Developer · Founder · 16</div>
+        <div class="hero-status r go">Developer · Portfolio</div>
         <h1 class="hero-h1 r go delay1">
           <span class="line1">I BUILD</span>
-          <span class="line2">WORLDS.</span>
+          <span class="line2">SYSTEMS.</span>
           <span class="line3">SirJolly · Est. 2016</span>
         </h1>
-        <p class="hero-sub r go delay2">Started writing Lua at six years old. Now running a studio, shipping games, and staying curious across everything from game architecture to cybersecurity.</p>
+        <p class="hero-sub r go delay2">I started with Lua at six and kept going. Game systems, web work, backend logic, security, and whatever else needs building.</p>
         <div class="hero-actions r go delay3">
-          <a href="#projects" class="cta cta-solid">See the work</a>
-          <a href="#socials" class="cta cta-outline">Get in touch</a>
+          <a href="#projects" class="cta cta-solid">View projects</a>
+          <a href="#socials" class="cta cta-outline">Contact</a>
         </div>
         <div class="hero-ticker r go delay4">
           <div class="ticker-card">
@@ -1090,7 +1089,7 @@ footer {
           </div>
           <div class="ticker-card">
             <div class="tick-num">1</div>
-            <div class="tick-label">Studio Founded</div>
+            <div class="tick-label">Portfolio</div>
           </div>
         </div>
       </div>
@@ -1103,7 +1102,7 @@ footer {
           <div class="orbit-chip two"><strong>Web</strong><br>Interactive</div>
           <div class="orbit-chip three"><strong>3D</strong><br>Depth Layer</div>
           <div class="orbit-core">
-            <div class="orbit-title">SIRJOLLY<span>STUDIO</span></div>
+            <div class="orbit-title">SIRJOLLY<span>PORTFOLIO</span></div>
           </div>
         </div>
       </div>
@@ -1113,19 +1112,19 @@ footer {
   <div class="skew-wrap" id="about">
     <div class="inner">
       <div>
-        <div class="about-head r">Started<br>at <span class="hi">six.</span></div>
+        <div class="about-head r">Started<br>young.</div>
         <div style="display:grid;grid-template-columns:5fr 3fr;gap:3rem;align-items:start" class="about-2col">
           <div class="about-body r delay1">
-            <p>I did not get handed a coding curriculum — I found Lua on my own in February 2016 because I wanted to make things that did not exist yet. I was six. By the time most kids were learning to type, I had already broken and rebuilt my first game systems.</p>
-            <p>Second grade, I was bypassing school network restrictions just to practice building websites. Not to cause problems — I had already learned what the teacher was covering and wanted to keep moving. That same year I started working through algorithms.</p>
-            <p>Now I co-run <strong>Collapse Initiative, Inc.</strong> — a game studio with multiple live titles, a clothing brand, and more being built. The work spans game architecture, server systems, web development, cybersecurity, and systems programming.</p>
+            <p>I found Lua in 2016 because I wanted to make things I could not find anywhere else. That turned into systems work, then web work, then security, then the habit of building first and refining after.</p>
+            <p>By second grade, I was already building websites on my own and picking apart how things worked under the hood. I have always preferred making something real over talking around it.</p>
+            <p>Today I focus on game architecture, backend logic, web development, cybersecurity, and systems programming.</p>
           </div>
           <div class="about-aside r delay2">
-            <div class="aside-row"><span class="aside-k">Age</span><span class="aside-v">16 (May 2010)</span></div>
-            <div class="aside-row"><span class="aside-k">Role</span><span class="aside-v">Co-Founder, Collapse Initiative</span></div>
-            <div class="aside-row"><span class="aside-k">First Language</span><span class="aside-v">Luau, Feb 2016</span></div>
-            <div class="aside-row"><span class="aside-k">Also Professional</span><span class="aside-v">Cybersecurity · Algorithms</span></div>
-            <div class="aside-row"><span class="aside-k">Web Dev Since</span><span class="aside-v">2nd grade (~2017)</span></div>
+            <div class="aside-row"><span class="aside-k">Name</span><span class="aside-v">SirJolly</span></div>
+            <div class="aside-row"><span class="aside-k">First Language</span><span class="aside-v">Luau, 2016</span></div>
+            <div class="aside-row"><span class="aside-k">Web Dev</span><span class="aside-v">Since 2nd grade</span></div>
+            <div class="aside-row"><span class="aside-k">Focus</span><span class="aside-v">Games · Web · Security</span></div>
+            <div class="aside-row"><span class="aside-k">Portfolio</span><span class="aside-v">Single-person identity</span></div>
           </div>
         </div>
       </div>
@@ -1136,7 +1135,7 @@ footer {
     <div class="inner">
       <div class="section-head r">
         <div class="section-title">Languages<br>&amp; Tools</div>
-        <div class="section-note">Measured in years of actual use, not lines on a resume.</div>
+        <div class="section-note">Real experience, not inflated labels.</div>
       </div>
       <div class="skills-list">
         <div class="sk-row r">
@@ -1204,28 +1203,27 @@ footer {
       <div class="section-title r">Projects</div>
       <div class="co-header r delay1">
         <div>
-          <div class="co-name">Collapse Initiative, Inc.</div>
-          <div class="co-sub">Parent studio — co-founded. All games and brands operate under this group on Roblox.</div>
+          <div class="co-name">Work I have shipped</div>
+          <div class="co-sub">A few live projects and brands I have built or helped drive forward.</div>
         </div>
-        <a href="https://www.roblox.com/communities/254329821/Collapse-Initiative-Inc#!/about" target="_blank" rel="noopener noreferrer" class="tag-pill">Roblox Group ↗</a>
+        <div class="tag-pill">Selected Work</div>
       </div>
       <div class="proj-list">
         <div class="proj-item r">
           <div>
             <div class="proj-kind">Game · Active</div>
             <div class="proj-title">Planets of Hell</div>
-            <p class="proj-desc">Deep server architecture, modular boss fight systems, wave-based hazards, DataStore-backed progression. Has its own dedicated website.</p>
+            <p class="proj-desc">Server-heavy Roblox experience with modular boss systems, wave hazards, and progression systems built for long-term play.</p>
           </div>
           <div class="proj-links-col">
-            <a href="https://planetsofhell.com" target="_blank" rel="noopener noreferrer" class="tag-pill">Website ↗</a>
-            <a href="https://www.roblox.com/communities/254329821/Collapse-Initiative-Inc#!/about" target="_blank" rel="noopener noreferrer" class="tag-pill">Studio ↗</a>
+            <a href="https://www.roblox.com/communities/254329821/Collapse-Initiative-Inc#!/about" target="_blank" rel="noopener noreferrer" class="tag-pill">Roblox Group ↗</a>
           </div>
         </div>
         <div class="proj-item r delay1">
           <div>
             <div class="proj-kind">Game · Own Group</div>
             <div class="proj-title">Blackwater Corrections</div>
-            <p class="proj-desc">Corrections-themed Roblox experience. Has its own dedicated Roblox group under the Collapse Initiative umbrella — structured gameplay and server moderation systems.</p>
+            <p class="proj-desc">A structured Roblox experience with moderation-aware systems and a more controlled gameplay loop.</p>
           </div>
           <div class="proj-links-col">
             <a href="https://www.roblox.com/communities/895033595/Blackwater-Corrections#!/about" target="_blank" rel="noopener noreferrer" class="tag-pill">Roblox Group ↗</a>
@@ -1235,7 +1233,7 @@ footer {
           <div>
             <div class="proj-kind">Brand · Clothing</div>
             <div class="proj-title">Collapsed Clothing</div>
-            <p class="proj-desc">Roblox-native clothing brand — its own group, its own identity within the Collapse Initiative family. Player expression beyond gameplay.</p>
+            <p class="proj-desc">A Roblox clothing brand with its own visual identity and product line.</p>
           </div>
           <div class="proj-links-col">
             <a href="https://www.roblox.com/communities/988960916/Collapsed-Clothing#!/about" target="_blank" rel="noopener noreferrer" class="tag-pill">Roblox Group ↗</a>
@@ -1362,12 +1360,7 @@ footer {
           <div class="social-handle">SirJolly</div>
           <div class="social-arrow">↗</div>
         </a>
-        <a href="https://planetsofhell.com" target="_blank" rel="noopener noreferrer" class="social-row r delay2">
-          <div class="social-platform">Game Website</div>
-          <div class="social-handle">planetsofhell.com</div>
-          <div class="social-arrow">↗</div>
-        </a>
-        <a href="https://www.roblox.com/communities/254329821/Collapse-Initiative-Inc#!/about" target="_blank" rel="noopener noreferrer" class="social-row r delay3">
+        <a href="https://www.roblox.com/communities/254329821/Collapse-Initiative-Inc#!/about" target="_blank" rel="noopener noreferrer" class="social-row r delay2">
           <div class="social-platform">Roblox Studio</div>
           <div class="social-handle">Collapse Initiative, Inc.</div>
           <div class="social-arrow">↗</div>
@@ -1460,26 +1453,42 @@ footer {
     }
   }, { threshold: 0.12, rootMargin: '0px 0px -30px 0px' });
   document.querySelectorAll('.r').forEach(el => obs.observe(el));
+})();
 
-  const orbit = document.querySelector('.orbit-shell');
+(() => {
   const hero = document.getElementById('hero');
-  if (orbit && hero) {
-    let tx = 0, ty = 0, cx = 0, cy = 0;
-    window.addEventListener('pointermove', e => {
-      const r = hero.getBoundingClientRect();
-      const px = (e.clientX - r.left) / r.width - 0.5;
-      const py = (e.clientY - r.top) / r.height - 0.5;
-      tx = px * 18;
-      ty = py * 14;
-    }, { passive: true });
-    const tick = () => {
-      cx += (tx - cx) * 0.06;
-      cy += (ty - cy) * 0.06;
-      orbit.style.transform = `translate3d(${cx}px, ${cy}px, 0) rotateX(${8 - cy * 0.2}deg) rotateY(${-16 + cx * 0.35}deg)`;
-      requestAnimationFrame(tick);
-    };
-    tick();
-  }
+  const layers = Array.from(document.querySelectorAll('[data-depth]'));
+  const orbit = document.querySelector('.orbit-shell');
+  let mx = 0, my = 0, tx = 0, ty = 0, ox = 0, oy = 0;
+
+  const onMove = e => {
+    const r = hero.getBoundingClientRect();
+    const px = (e.clientX - r.left) / r.width - 0.5;
+    const py = (e.clientY - r.top) / r.height - 0.5;
+    mx = px;
+    my = py;
+  };
+
+  const tick = () => {
+    tx += (mx - tx) * 0.06;
+    ty += (my - ty) * 0.06;
+
+    if (orbit) {
+      ox += ((tx * 18) - ox) * 0.05;
+      oy += ((ty * 14) - oy) * 0.05;
+      orbit.style.transform = `translate3d(${ox}px, ${oy}px, 0) rotateX(${8 - oy * 0.18}deg) rotateY(${-16 + ox * 0.32}deg)`;
+    }
+
+    layers.forEach(el => {
+      const depth = parseFloat(el.dataset.depth || '0');
+      el.style.transform = `translate3d(${tx * 50 * depth}px, ${ty * 40 * depth}px, 0)`;
+    });
+
+    requestAnimationFrame(tick);
+  };
+
+  window.addEventListener('pointermove', onMove, { passive: true });
+  tick();
 })();
 </script>
 </body>
