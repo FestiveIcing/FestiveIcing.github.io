@@ -1,0 +1,1427 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SirJolly</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Bebas+Neue&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+
+:root {
+  --bg: #080b10;
+  --bg2: #0d1117;
+  --blue: #00aaff;
+  --blue-dim: rgba(0,170,255,0.12);
+  --amber: #ffaa00;
+  --white: #f0f2f5;
+  --grey: #6b7280;
+  --dim: #1e2530;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--bg);
+  color: var(--white);
+  font-family: 'Space Grotesk', sans-serif;
+  font-weight: 400;
+  overflow-x: hidden;
+  line-height: 1.6;
+}
+
+::selection { background: var(--blue); color: #000; }
+a { color: inherit; text-decoration: none; }
+
+canvas#bg {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  opacity: 0.6;
+}
+
+.site { position: relative; z-index: 1; }
+
+/* ── NAV ── */
+nav {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 999;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1.4rem 3.5rem;
+  mix-blend-mode: normal;
+  transition: background 0.4s, backdrop-filter 0.4s;
+}
+
+nav.solid {
+  background: rgba(8,11,16,0.9);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border-bottom: 1px solid rgba(255,255,255,0.05);
+}
+
+.nav-mark {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 1.5rem;
+  letter-spacing: 0.12em;
+  color: var(--white);
+}
+
+.nav-mark em {
+  color: var(--blue);
+  font-style: normal;
+}
+
+.nav-list {
+  display: flex;
+  gap: 2.5rem;
+  list-style: none;
+}
+
+.nav-list a {
+  font-size: 0.72rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--grey);
+  font-weight: 500;
+  transition: color 0.2s;
+  position: relative;
+}
+
+.nav-list a::after {
+  content: '';
+  position: absolute;
+  bottom: -3px; left: 0;
+  width: 0; height: 1px;
+  background: var(--blue);
+  transition: width 0.25s;
+}
+
+.nav-list a:hover { color: var(--white); }
+.nav-list a:hover::after { width: 100%; }
+
+.ham {
+  display: none;
+  cursor: pointer;
+  background: none;
+  border: none;
+  padding: 4px;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.ham span {
+  display: block;
+  width: 24px; height: 2px;
+  background: var(--grey);
+  border-radius: 2px;
+  transition: 0.3s;
+}
+
+.ham:hover span { background: var(--white); }
+
+.mob-menu {
+  display: none;
+  position: fixed;
+  inset: 0;
+  z-index: 998;
+  background: rgba(8,11,16,0.97);
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+  padding: 4rem 3rem;
+  gap: 1.5rem;
+}
+
+.mob-menu.on { display: flex; }
+
+.mob-menu a {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 3rem;
+  letter-spacing: 0.08em;
+  color: var(--white);
+  transition: color 0.2s, transform 0.2s;
+}
+
+.mob-menu a:hover { color: var(--blue); transform: translateX(10px); }
+
+.mob-close {
+  position: absolute;
+  top: 1.5rem; right: 2.5rem;
+  background: none; border: none;
+  color: var(--grey);
+  font-size: 1.5rem;
+  cursor: pointer;
+  transition: color 0.2s;
+}
+
+.mob-close:hover { color: var(--white); }
+
+/* ── DIAGONAL SECTIONS ── */
+.skew-wrap {
+  position: relative;
+  padding: 9rem 0 6rem;
+  margin: 0;
+}
+
+.skew-wrap::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: var(--bg2);
+  transform: skewY(-3deg);
+  z-index: -1;
+}
+
+.skew-wrap.alt::before { background: #0a0f16; }
+
+.inner {
+  max-width: 1140px;
+  margin: 0 auto;
+  padding: 0 3.5rem;
+}
+
+/* ── REVEAL ── */
+.r {
+  opacity: 0;
+  transform: translate(-18px, 22px) rotate(-1.2deg);
+  transition: opacity 0.75s cubic-bezier(0.22,1,0.36,1),
+              transform 0.75s cubic-bezier(0.22,1,0.36,1);
+}
+
+.r.r2 {
+  transform: translate(18px, 22px) rotate(1.2deg);
+}
+
+.r.r3 {
+  transform: translate(0, 30px) rotate(0.5deg);
+}
+
+.r.go {
+  opacity: 1;
+  transform: translate(0,0) rotate(0deg);
+}
+
+.r.delay1 { transition-delay: 0.08s; }
+.r.delay2 { transition-delay: 0.16s; }
+.r.delay3 { transition-delay: 0.24s; }
+.r.delay4 { transition-delay: 0.32s; }
+.r.delay5 { transition-delay: 0.4s; }
+
+/* ── HERO ── */
+#hero {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 0 3.5rem;
+  max-width: 1140px;
+  margin: 0 auto;
+  position: relative;
+}
+
+.hero-bg-text {
+  position: absolute;
+  top: 50%;
+  left: -0.03em;
+  transform: translateY(-50%);
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: clamp(14rem, 28vw, 28rem);
+  line-height: 0.85;
+  letter-spacing: -0.02em;
+  color: rgba(255,255,255,0.025);
+  pointer-events: none;
+  user-select: none;
+  white-space: nowrap;
+  z-index: 0;
+}
+
+.hero-content { position: relative; z-index: 1; }
+
+.hero-status {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.65rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--blue);
+  margin-bottom: 2rem;
+}
+
+.hero-status::before {
+  content: '';
+  display: block;
+  width: 6px; height: 6px;
+  border-radius: 50%;
+  background: var(--blue);
+  box-shadow: 0 0 10px var(--blue);
+  animation: glow 2s ease-in-out infinite;
+}
+
+@keyframes glow {
+  0%,100% { opacity:1; box-shadow: 0 0 8px var(--blue); }
+  50% { opacity:0.4; box-shadow: 0 0 3px var(--blue); }
+}
+
+.hero-h1 {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: clamp(5rem, 13vw, 13rem);
+  line-height: 0.88;
+  letter-spacing: 0.02em;
+  margin-bottom: 2rem;
+}
+
+.hero-h1 .line1 { display: block; color: var(--white); }
+
+.hero-h1 .line2 {
+  display: block;
+  color: transparent;
+  -webkit-text-stroke: 2px var(--blue);
+  text-shadow: none;
+}
+
+.hero-h1 .line3 {
+  display: block;
+  color: var(--amber);
+  font-size: 0.4em;
+  letter-spacing: 0.25em;
+  font-family: 'JetBrains Mono', monospace;
+  line-height: 2;
+  font-weight: 400;
+}
+
+.hero-sub {
+  font-size: clamp(0.95rem, 1.6vw, 1.1rem);
+  color: var(--grey);
+  max-width: 440px;
+  margin-bottom: 3rem;
+  line-height: 1.8;
+}
+
+.hero-actions { display: flex; gap: 1rem; flex-wrap: wrap; }
+
+.cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.8rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  padding: 0.9rem 1.8rem;
+  border-radius: 4px;
+  transition: transform 0.2s, box-shadow 0.2s;
+  cursor: pointer;
+}
+
+.cta:hover { transform: translateY(-2px); }
+
+.cta-solid {
+  background: var(--blue);
+  color: #000;
+  box-shadow: 0 4px 24px rgba(0,170,255,0.3);
+}
+
+.cta-solid:hover { box-shadow: 0 8px 36px rgba(0,170,255,0.5); }
+
+.cta-outline {
+  border: 1px solid rgba(255,255,255,0.15);
+  color: var(--grey);
+}
+
+.cta-outline:hover { border-color: rgba(255,255,255,0.35); color: var(--white); }
+
+.hero-ticker {
+  margin-top: 5rem;
+  display: flex;
+  gap: 3.5rem;
+  flex-wrap: wrap;
+  align-items: flex-end;
+}
+
+.tick-num {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 3.5rem;
+  line-height: 1;
+  color: var(--white);
+  letter-spacing: 0.02em;
+}
+
+.tick-num sup {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--blue);
+  vertical-align: super;
+}
+
+.tick-label {
+  font-size: 0.7rem;
+  color: var(--grey);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  margin-top: 0.2rem;
+}
+
+/* ── ABOUT ── */
+#about .inner {
+  display: grid;
+  grid-template-columns: 5fr 4fr;
+  gap: 6rem;
+  align-items: start;
+}
+
+.about-head {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: clamp(3rem, 5.5vw, 5.5rem);
+  letter-spacing: 0.02em;
+  line-height: 0.9;
+  margin-bottom: 2.5rem;
+}
+
+.about-head .hi { color: var(--blue); }
+
+.about-body p {
+  color: var(--grey);
+  font-size: 0.97rem;
+  margin-bottom: 1.3rem;
+  line-height: 1.85;
+}
+
+.about-body p strong { color: var(--white); font-weight: 600; }
+
+.about-aside {
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+  margin-top: 2.5rem;
+}
+
+.aside-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  padding: 1rem 0;
+  border-bottom: 1px solid rgba(255,255,255,0.06);
+}
+
+.aside-row:first-child { border-top: 1px solid rgba(255,255,255,0.06); }
+
+.aside-k {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.6rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--grey);
+}
+
+.aside-v {
+  font-size: 0.92rem;
+  font-weight: 600;
+  color: var(--white);
+  text-align: right;
+  max-width: 60%;
+}
+
+/* ── SKILLS ── */
+#skills .section-head {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  margin-bottom: 3.5rem;
+  gap: 2rem;
+  flex-wrap: wrap;
+}
+
+.section-title {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: clamp(3rem, 5.5vw, 5rem);
+  letter-spacing: 0.03em;
+  line-height: 0.9;
+}
+
+.section-note {
+  font-size: 0.82rem;
+  color: var(--grey);
+  max-width: 300px;
+  text-align: right;
+  line-height: 1.6;
+}
+
+.skills-list { display: flex; flex-direction: column; }
+
+.sk-row {
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+  padding: 1.4rem 0;
+  border-bottom: 1px solid rgba(255,255,255,0.05);
+  transition: padding-left 0.3s;
+  cursor: default;
+  position: relative;
+}
+
+.sk-row::before {
+  content: '';
+  position: absolute;
+  left: -3.5rem;
+  top: 0; bottom: 0;
+  width: 2px;
+  background: var(--blue);
+  transform: scaleY(0);
+  transition: transform 0.3s cubic-bezier(0.4,0,0.2,1);
+}
+
+.sk-row:hover::before { transform: scaleY(1); }
+.sk-row:hover { padding-left: 0.75rem; }
+
+.sk-name-wrap {
+  flex: 0 0 220px;
+}
+
+.sk-name {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 1.6rem;
+  letter-spacing: 0.04em;
+  line-height: 1;
+  color: var(--white);
+}
+
+.sk-cat {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.57rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--amber);
+  margin-top: 2px;
+}
+
+.sk-track {
+  flex: 1;
+  height: 2px;
+  background: rgba(255,255,255,0.06);
+  border-radius: 99px;
+  overflow: visible;
+  position: relative;
+}
+
+.sk-fill {
+  position: absolute;
+  top: 0; left: 0; bottom: 0;
+  border-radius: 99px;
+  background: linear-gradient(90deg, var(--blue) 0%, rgba(0,170,255,0.5) 100%);
+  transform-origin: left;
+  transform: scaleX(0);
+  transition: transform 1.2s cubic-bezier(0.4,0,0.2,1) 0.05s;
+}
+
+.sk-fill::after {
+  content: '';
+  position: absolute;
+  right: -1px; top: -3px;
+  width: 8px; height: 8px;
+  border-radius: 50%;
+  background: var(--blue);
+  box-shadow: 0 0 8px var(--blue);
+}
+
+.sk-row.go .sk-fill { transform: scaleX(1); }
+
+.sk-yrs {
+  flex: 0 0 80px;
+  text-align: right;
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 2rem;
+  color: rgba(255,255,255,0.15);
+  letter-spacing: 0.05em;
+  line-height: 1;
+  transition: color 0.25s;
+}
+
+.sk-row:hover .sk-yrs { color: var(--blue); }
+
+/* ── PROJECTS ── */
+#projects .section-title { margin-bottom: 3.5rem; }
+
+.co-header {
+  border-left: 3px solid var(--blue);
+  padding: 1.25rem 0 1.25rem 1.75rem;
+  margin-bottom: 3rem;
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+  flex-wrap: wrap;
+}
+
+.co-name {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 1.75rem;
+  letter-spacing: 0.06em;
+  color: var(--white);
+}
+
+.co-sub {
+  font-size: 0.82rem;
+  color: var(--grey);
+  line-height: 1.5;
+  flex: 1;
+}
+
+.tag-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.6rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  border: 1px solid rgba(255,255,255,0.12);
+  color: var(--grey);
+  padding: 0.35rem 0.85rem;
+  border-radius: 99px;
+  white-space: nowrap;
+  transition: color 0.2s, border-color 0.2s, background 0.2s;
+}
+
+.tag-pill:hover {
+  color: var(--white);
+  border-color: var(--blue);
+  background: rgba(0,170,255,0.08);
+}
+
+.proj-list { display: flex; flex-direction: column; }
+
+.proj-item {
+  padding: 2.5rem 0;
+  border-bottom: 1px solid rgba(255,255,255,0.05);
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 2rem;
+  align-items: center;
+  transition: padding-left 0.3s, opacity 0.2s;
+  cursor: default;
+  position: relative;
+}
+
+.proj-item::before {
+  content: '';
+  position: absolute;
+  left: -3.5rem;
+  top: 0; bottom: 0;
+  width: 3px;
+  background: linear-gradient(180deg, var(--blue), var(--amber));
+  transform: scaleY(0);
+  transition: transform 0.35s cubic-bezier(0.22,1,0.36,1);
+}
+
+.proj-item:hover::before { transform: scaleY(1); }
+.proj-item:hover { padding-left: 1rem; }
+
+.proj-kind {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.58rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--amber);
+  margin-bottom: 0.6rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.proj-kind::before {
+  content: '';
+  display: block;
+  width: 5px; height: 5px;
+  border-radius: 50%;
+  background: var(--amber);
+}
+
+.proj-title {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: clamp(1.8rem, 3.5vw, 3rem);
+  letter-spacing: 0.03em;
+  line-height: 1;
+  margin-bottom: 0.75rem;
+  transition: color 0.2s;
+}
+
+.proj-item:hover .proj-title { color: var(--blue); }
+
+.proj-desc {
+  font-size: 0.88rem;
+  color: var(--grey);
+  max-width: 560px;
+  line-height: 1.75;
+}
+
+.proj-links-col { display: flex; flex-direction: column; gap: 0.5rem; align-items: flex-end; }
+
+/* ── LANGUAGES ── */
+#languages .section-title { margin-bottom: 0.75rem; }
+
+.lang-hint {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.62rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--grey);
+  margin-bottom: 3.5rem;
+}
+
+.flags-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2rem;
+  align-items: flex-start;
+}
+
+.flag-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.9rem;
+  cursor: default;
+}
+
+.flag-shell {
+  width: 110px;
+  height: 74px;
+  border-radius: 10px;
+  border: 2.5px solid rgba(255,255,255,0.1);
+  overflow: hidden;
+  position: relative;
+  transition: border-color 0.25s, box-shadow 0.25s, transform 0.35s cubic-bezier(0.34,1.46,0.64,1);
+}
+
+.flag-item:hover .flag-shell {
+  border-color: var(--blue);
+  box-shadow: 0 0 0 4px rgba(0,170,255,0.15), 0 12px 40px rgba(0,0,0,0.6);
+  transform: translateY(-8px) rotate(-1.5deg) scale(1.05);
+}
+
+.flag-shell svg {
+  width: 100%; height: 100%; display: block;
+  filter: grayscale(1) brightness(0.4);
+  transition: filter 0.06s;
+}
+
+.flag-item:hover .flag-shell svg {
+  animation: inkBurst 0.55s cubic-bezier(0.34,1.56,0.64,1) forwards;
+}
+
+@keyframes inkBurst {
+  0%   { filter: grayscale(1) brightness(0.4); clip-path: circle(0% at 50% 50%); }
+  35%  { clip-path: circle(40% at 50% 50%); }
+  65%  { clip-path: circle(60% at 50% 50%); filter: grayscale(0) brightness(1.1) saturate(1.25); }
+  80%  { clip-path: circle(56% at 50% 50%); }
+  100% { filter: grayscale(0) brightness(1.05) saturate(1.2); clip-path: circle(150% at 50% 50%); }
+}
+
+.flag-name {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 1.1rem;
+  letter-spacing: 0.1em;
+  color: var(--white);
+  text-align: center;
+  transition: color 0.2s;
+}
+
+.flag-item:hover .flag-name { color: var(--blue); }
+
+.flag-lvl {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.56rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--grey);
+  text-align: center;
+}
+
+.lang-footnote {
+  margin-top: 3rem;
+  max-width: 580px;
+  font-size: 0.85rem;
+  color: var(--grey);
+  font-style: italic;
+  line-height: 1.8;
+  border-left: 2px solid rgba(0,170,255,0.3);
+  padding-left: 1.25rem;
+}
+
+/* ── MARTIAL ARTS ── */
+#martial .section-title { margin-bottom: 3rem; }
+
+.martial-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 6rem;
+  align-items: start;
+}
+
+.martial-copy p {
+  color: var(--grey);
+  font-size: 0.97rem;
+  margin-bottom: 1.3rem;
+  line-height: 1.85;
+}
+
+.martial-copy p strong { color: var(--white); font-weight: 600; }
+
+.timeline { display: flex; flex-direction: column; }
+
+.tl {
+  display: flex;
+  gap: 1.25rem;
+  padding-bottom: 2rem;
+}
+
+.tl:last-child { padding-bottom: 0; }
+
+.tl-spine {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  flex-shrink: 0;
+  width: 16px;
+}
+
+.tl-dot {
+  width: 10px; height: 10px;
+  border-radius: 50%;
+  border: 2px solid var(--blue);
+  background: var(--bg);
+  flex-shrink: 0;
+  margin-top: 5px;
+  position: relative;
+  z-index: 1;
+  transition: background 0.2s, box-shadow 0.2s;
+}
+
+.tl:hover .tl-dot {
+  background: var(--blue);
+  box-shadow: 0 0 10px var(--blue);
+}
+
+.tl-line {
+  width: 1px;
+  flex: 1;
+  background: rgba(0,170,255,0.15);
+  margin-top: 3px;
+}
+
+.tl:last-child .tl-line { display: none; }
+
+.tl-year {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.6rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--amber);
+  margin-bottom: 0.25rem;
+}
+
+.tl-desc {
+  font-size: 0.87rem;
+  color: var(--grey);
+  line-height: 1.7;
+}
+
+/* ── SOCIALS ── */
+#socials .section-title { margin-bottom: 3rem; }
+
+.socials-list { display: flex; flex-direction: column; }
+
+.social-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1.75rem 0;
+  border-bottom: 1px solid rgba(255,255,255,0.05);
+  gap: 2rem;
+  transition: padding-left 0.3s;
+  position: relative;
+}
+
+.social-row::after {
+  content: '';
+  position: absolute;
+  bottom: -1px; left: 0;
+  width: 0; height: 1px;
+  background: var(--blue);
+  transition: width 0.35s cubic-bezier(0.22,1,0.36,1);
+}
+
+.social-row:hover::after { width: 100%; }
+.social-row:hover { padding-left: 0.75rem; }
+
+.social-platform {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.6rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--grey);
+  flex: 0 0 130px;
+}
+
+.social-handle {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: clamp(1.5rem, 3vw, 2.5rem);
+  letter-spacing: 0.04em;
+  color: var(--white);
+  flex: 1;
+  transition: color 0.2s;
+}
+
+.social-row:hover .social-handle { color: var(--blue); }
+
+.social-arrow {
+  font-size: 1.25rem;
+  color: rgba(255,255,255,0.2);
+  transition: transform 0.25s, color 0.25s;
+  flex-shrink: 0;
+}
+
+.social-row:hover .social-arrow {
+  transform: translate(4px, -4px);
+  color: var(--blue);
+}
+
+/* ── FOOTER ── */
+footer {
+  text-align: center;
+  padding: 2.5rem 3.5rem;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.6rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: rgba(107,114,128,0.4);
+  border-top: 1px solid rgba(255,255,255,0.04);
+}
+
+/* ── RESPONSIVE ── */
+@media (max-width: 860px) {
+  nav { padding: 1.1rem 1.75rem; }
+  .nav-list { display: none; }
+  .ham { display: flex; }
+
+  #hero, .inner { padding: 0 1.75rem; }
+
+  section .inner,
+  #about .inner { padding: 0 1.75rem; }
+
+  #about .inner { grid-template-columns: 1fr; gap: 3rem; }
+
+  .martial-grid { grid-template-columns: 1fr; gap: 3rem; }
+
+  .skew-wrap { padding: 7rem 0 5rem; }
+
+  .hero-ticker { gap: 2rem; }
+
+  .sk-name-wrap { flex: 0 0 160px; }
+  .sk-yrs { flex: 0 0 50px; font-size: 1.5rem; }
+
+  .proj-item { grid-template-columns: 1fr; }
+  .proj-links-col { flex-direction: row; align-items: flex-start; flex-wrap: wrap; }
+
+  .section-note { text-align: left; }
+
+  .sk-row::before { left: -1.75rem; }
+  .proj-item::before { left: -1.75rem; }
+
+  .flags-row { gap: 1.25rem; }
+  .flag-shell { width: 88px; height: 60px; }
+
+  footer { padding: 2rem 1.75rem; }
+}
+
+@media (max-width: 480px) {
+  .hero-h1 { font-size: 4rem; }
+  .hero-bg-text { display: none; }
+  .tick-num { font-size: 2.5rem; }
+  .social-row { gap: 1rem; }
+  .social-platform { flex: 0 0 90px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .r { opacity: 1; transform: none; transition: none; }
+  .sk-fill { transform: scaleX(1); transition: none; }
+  @keyframes inkBurst { to { filter: grayscale(0) brightness(1.05); clip-path: none; } }
+  @keyframes glow { to {} }
+}
+
+</style>
+</head>
+<body>
+
+<canvas id="bg"></canvas>
+
+<div class="site">
+
+  <nav id="nav">
+    <div class="nav-mark">Sir<em>Jolly</em></div>
+    <ul class="nav-list">
+      <li><a href="#about">About</a></li>
+      <li><a href="#skills">Skills</a></li>
+      <li><a href="#projects">Projects</a></li>
+      <li><a href="#languages">Languages</a></li>
+      <li><a href="#martial">Martial Arts</a></li>
+      <li><a href="#socials">Socials</a></li>
+    </ul>
+    <button class="ham" id="ham" aria-label="Open menu">
+      <span></span><span></span><span></span>
+    </button>
+  </nav>
+
+  <div class="mob-menu" id="mob">
+    <button class="mob-close" id="mobClose">✕</button>
+    <a href="#about" class="ml">About</a>
+    <a href="#skills" class="ml">Skills</a>
+    <a href="#projects" class="ml">Projects</a>
+    <a href="#languages" class="ml">Languages</a>
+    <a href="#martial" class="ml">Martial Arts</a>
+    <a href="#socials" class="ml">Socials</a>
+  </div>
+
+  <!-- HERO -->
+  <section id="hero">
+    <div class="hero-bg-text" aria-hidden="true">SIRJOLLY</div>
+    <div class="hero-content">
+      <div class="hero-status r go">Developer · Founder · 16</div>
+      <h1 class="hero-h1 r go delay1">
+        <span class="line1">I BUILD</span>
+        <span class="line2">WORLDS.</span>
+        <span class="line3">SirJolly · Est. 2016</span>
+      </h1>
+      <p class="hero-sub r go delay2">Started writing Lua at six years old. Now running a studio, shipping games, and staying curious across everything from game architecture to cybersecurity.</p>
+      <div class="hero-actions r go delay3">
+        <a href="#projects" class="cta cta-solid">See the work</a>
+        <a href="#socials" class="cta cta-outline">Get in touch</a>
+      </div>
+      <div class="hero-ticker r go delay4">
+        <div>
+          <div class="tick-num">10<sup>yr</sup></div>
+          <div class="tick-label">Luau / Roblox Dev</div>
+        </div>
+        <div>
+          <div class="tick-num">9<sup>yr</sup></div>
+          <div class="tick-label">Web Development</div>
+        </div>
+        <div>
+          <div class="tick-num">3<sup>+</sup></div>
+          <div class="tick-label">Active Projects</div>
+        </div>
+        <div>
+          <div class="tick-num">1</div>
+          <div class="tick-label">Studio Founded</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ABOUT -->
+  <div class="skew-wrap" id="about">
+    <div class="inner">
+      <div>
+        <div class="about-head r">
+          Started<br>at <span class="hi">six.</span>
+        </div>
+        <div style="display:grid;grid-template-columns:5fr 3fr;gap:5rem;align-items:start" class="about-2col">
+          <div class="about-body r delay1">
+            <p>I didn't get handed a coding curriculum — I found Lua on my own in February 2016 because I wanted to make things that didn't exist yet. I was six. By the time most kids were learning to type I had already broken and rebuilt my first game systems.</p>
+            <p>Second grade, I was bypassing school network restrictions just to practice building websites. Not to cause problems — I had already learned what the teacher was covering and wanted to keep moving. That same year I started working through algorithms.</p>
+            <p>Now I co-run <strong>Collapse Initiative, Inc.</strong> — a game studio with multiple live titles, a clothing brand, and more being built. The work spans game architecture, server systems, web development, cybersecurity, and systems programming.</p>
+          </div>
+          <div class="about-aside r delay2">
+            <div class="aside-row">
+              <span class="aside-k">Age</span>
+              <span class="aside-v">16 (May 2010)</span>
+            </div>
+            <div class="aside-row">
+              <span class="aside-k">Role</span>
+              <span class="aside-v">Co-Founder, Collapse Initiative</span>
+            </div>
+            <div class="aside-row">
+              <span class="aside-k">First Language</span>
+              <span class="aside-v">Luau, Feb 2016</span>
+            </div>
+            <div class="aside-row">
+              <span class="aside-k">Also Professional</span>
+              <span class="aside-v">Cybersecurity · Algorithms</span>
+            </div>
+            <div class="aside-row">
+              <span class="aside-k">Web Dev Since</span>
+              <span class="aside-v">2nd grade (~2017)</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="divider" style="height:1px;background:linear-gradient(90deg,transparent,rgba(0,170,255,0.15) 40%,rgba(0,170,255,0.15) 60%,transparent);max-width:1140px;margin:0 auto;padding:0 3.5rem"></div>
+
+  <!-- SKILLS -->
+  <div id="skills" style="padding:8rem 0">
+    <div class="inner">
+      <div class="section-head r">
+        <div class="section-title">Languages<br>&amp; Tools</div>
+        <div class="section-note">Measured in years of actual use, not lines on a resume.</div>
+      </div>
+      <div class="skills-list">
+        <div class="sk-row r" data-w="1">
+          <div class="sk-name-wrap">
+            <div class="sk-name">Luau / Lua</div>
+            <div class="sk-cat">Game Scripting</div>
+          </div>
+          <div class="sk-track"><div class="sk-fill" style="width:100%"></div></div>
+          <div class="sk-yrs">10yr</div>
+        </div>
+        <div class="sk-row r delay1" data-w="0.95">
+          <div class="sk-name-wrap">
+            <div class="sk-name">HTML · CSS · JS</div>
+            <div class="sk-cat">Web</div>
+          </div>
+          <div class="sk-track"><div class="sk-fill" style="width:95%"></div></div>
+          <div class="sk-yrs">9yr</div>
+        </div>
+        <div class="sk-row r delay2" data-w="0.85">
+          <div class="sk-name-wrap">
+            <div class="sk-name">Node.js</div>
+            <div class="sk-cat">Backend</div>
+          </div>
+          <div class="sk-track"><div class="sk-fill" style="width:85%"></div></div>
+          <div class="sk-yrs">7yr</div>
+        </div>
+        <div class="sk-row r delay2" data-w="0.9">
+          <div class="sk-name-wrap">
+            <div class="sk-name">Cybersecurity</div>
+            <div class="sk-cat">Security</div>
+          </div>
+          <div class="sk-track"><div class="sk-fill" style="width:90%"></div></div>
+          <div class="sk-yrs">9yr</div>
+        </div>
+        <div class="sk-row r delay3" data-w="0.88">
+          <div class="sk-name-wrap">
+            <div class="sk-name">Algorithms</div>
+            <div class="sk-cat">CS Fundamentals</div>
+          </div>
+          <div class="sk-track"><div class="sk-fill" style="width:88%"></div></div>
+          <div class="sk-yrs">Pro</div>
+        </div>
+        <div class="sk-row r delay3" data-w="0.72">
+          <div class="sk-name-wrap">
+            <div class="sk-name">C++ &amp; C#</div>
+            <div class="sk-cat">Systems</div>
+          </div>
+          <div class="sk-track"><div class="sk-fill" style="width:72%"></div></div>
+          <div class="sk-yrs">4yr</div>
+        </div>
+        <div class="sk-row r delay4" data-w="0.62">
+          <div class="sk-name-wrap">
+            <div class="sk-name">Python</div>
+            <div class="sk-cat">Scripting</div>
+          </div>
+          <div class="sk-track"><div class="sk-fill" style="width:62%"></div></div>
+          <div class="sk-yrs">2.5yr</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- PROJECTS -->
+  <div class="skew-wrap alt" id="projects">
+    <div class="inner">
+      <div class="section-title r">Projects</div>
+
+      <div class="co-header r delay1">
+        <div>
+          <div class="co-name">Collapse Initiative, Inc.</div>
+          <div class="co-sub">Parent studio — co-founded. All games and brands operate under this group on Roblox.</div>
+        </div>
+        <a href="https://www.roblox.com/communities/254329821/Collapse-Initiative-Inc#!/about" target="_blank" class="tag-pill">Roblox Group ↗</a>
+      </div>
+
+      <div class="proj-list">
+
+        <div class="proj-item r">
+          <div>
+            <div class="proj-kind">Game · Active</div>
+            <div class="proj-title">Planets of Hell</div>
+            <p class="proj-desc">Deep server architecture, modular boss fight systems, wave-based hazards, DataStore-backed progression. Has its own dedicated website.</p>
+          </div>
+          <div class="proj-links-col">
+            <a href="https://planetsofhell.com" target="_blank" class="tag-pill">Website ↗</a>
+            <a href="https://www.roblox.com/communities/254329821/Collapse-Initiative-Inc#!/about" target="_blank" class="tag-pill">Studio ↗</a>
+          </div>
+        </div>
+
+        <div class="proj-item r delay1">
+          <div>
+            <div class="proj-kind">Game · Own Group</div>
+            <div class="proj-title">Blackwater Corrections</div>
+            <p class="proj-desc">Corrections-themed Roblox experience. Has its own dedicated Roblox group under the Collapse Initiative umbrella — structured gameplay and server moderation systems.</p>
+          </div>
+          <div class="proj-links-col">
+            <a href="https://www.roblox.com/communities/895033595/Blackwater-Corrections#!/about" target="_blank" class="tag-pill">Roblox Group ↗</a>
+          </div>
+        </div>
+
+        <div class="proj-item r delay2">
+          <div>
+            <div class="proj-kind">Brand · Clothing</div>
+            <div class="proj-title">Collapsed Clothing</div>
+            <p class="proj-desc">Roblox-native clothing brand — its own group, its own identity within the Collapse Initiative family. Player expression beyond gameplay.</p>
+          </div>
+          <div class="proj-links-col">
+            <a href="https://www.roblox.com/communities/988960916/Collapsed-Clothing#!/about" target="_blank" class="tag-pill">Roblox Group ↗</a>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- LANGUAGES -->
+  <div id="languages" style="padding:8rem 0">
+    <div class="inner">
+      <div class="section-title r">Languages</div>
+      <div class="lang-hint r delay1">Hover the flags</div>
+      <div class="flags-row">
+
+        <div class="flag-item r">
+          <div class="flag-shell">
+            <svg viewBox="0 0 110 74" xmlns="http://www.w3.org/2000/svg">
+              <rect width="110" height="74" fill="#B22234"/>
+              <rect width="110" height="5.7" y="5.7" fill="#fff"/>
+              <rect width="110" height="5.7" y="17.1" fill="#fff"/>
+              <rect width="110" height="5.7" y="28.5" fill="#fff"/>
+              <rect width="110" height="5.7" y="39.9" fill="#fff"/>
+              <rect width="110" height="5.7" y="51.3" fill="#fff"/>
+              <rect width="110" height="5.7" y="62.7" fill="#fff"/>
+              <rect width="44" height="40" fill="#3C3B6E"/>
+              <g fill="#fff">
+                <circle cx="5" cy="4.5" r="2.3"/><circle cx="13.8" cy="4.5" r="2.3"/><circle cx="22.5" cy="4.5" r="2.3"/><circle cx="31.2" cy="4.5" r="2.3"/><circle cx="40" cy="4.5" r="2.3"/>
+                <circle cx="9.4" cy="11" r="2.3"/><circle cx="18.2" cy="11" r="2.3"/><circle cx="26.9" cy="11" r="2.3"/><circle cx="35.6" cy="11" r="2.3"/>
+                <circle cx="5" cy="17.5" r="2.3"/><circle cx="13.8" cy="17.5" r="2.3"/><circle cx="22.5" cy="17.5" r="2.3"/><circle cx="31.2" cy="17.5" r="2.3"/><circle cx="40" cy="17.5" r="2.3"/>
+                <circle cx="9.4" cy="24" r="2.3"/><circle cx="18.2" cy="24" r="2.3"/><circle cx="26.9" cy="24" r="2.3"/><circle cx="35.6" cy="24" r="2.3"/>
+                <circle cx="5" cy="30.5" r="2.3"/><circle cx="13.8" cy="30.5" r="2.3"/><circle cx="22.5" cy="30.5" r="2.3"/><circle cx="31.2" cy="30.5" r="2.3"/>
+              </g>
+            </svg>
+          </div>
+          <div class="flag-name">English</div>
+          <div class="flag-lvl">Native</div>
+        </div>
+
+        <div class="flag-item r delay1">
+          <div class="flag-shell">
+            <svg viewBox="0 0 110 74" xmlns="http://www.w3.org/2000/svg">
+              <rect width="36.7" height="74" x="0" fill="#0039A6"/>
+              <rect width="36.7" height="74" x="36.7" fill="#fff"/>
+              <rect width="36.6" height="74" x="73.4" fill="#D52B1E"/>
+            </svg>
+          </div>
+          <div class="flag-name">Russian</div>
+          <div class="flag-lvl">A1 · Learning</div>
+        </div>
+
+        <div class="flag-item r delay2">
+          <div class="flag-shell">
+            <svg viewBox="0 0 110 74" xmlns="http://www.w3.org/2000/svg">
+              <rect width="110" height="24.7" y="0" fill="#009246"/>
+              <rect width="110" height="24.7" y="24.7" fill="#fff"/>
+              <rect width="110" height="24.6" y="49.4" fill="#CE2B37"/>
+            </svg>
+          </div>
+          <div class="flag-name">Italian</div>
+          <div class="flag-lvl">Beginner · Relearning</div>
+        </div>
+
+        <div class="flag-item r delay3" style="opacity:0.55">
+          <div class="flag-shell">
+            <svg viewBox="0 0 110 74" xmlns="http://www.w3.org/2000/svg">
+              <rect width="110" height="74" fill="#BC002D"/>
+              <circle cx="55" cy="37" r="21" fill="#fff"/>
+              <circle cx="55" cy="37" r="17" fill="#BC002D"/>
+            </svg>
+          </div>
+          <div class="flag-name">Japanese</div>
+          <div class="flag-lvl">A2 · On hold</div>
+        </div>
+
+      </div>
+      <div class="lang-footnote r delay2">
+        Held conversation-level Italian and A2 Japanese before high school. Life got in the way. Planning to reclaim both — and keep adding more eventually.
+      </div>
+    </div>
+  </div>
+
+  <!-- MARTIAL ARTS -->
+  <div class="skew-wrap" id="martial">
+    <div class="inner">
+      <div class="section-title r">Martial Arts</div>
+      <div class="martial-grid" style="margin-top:3rem">
+        <div class="martial-copy r">
+          <p>Started <strong>Tang Soo Do</strong> in 2016 — the same year I started Roblox development. Both needed the same thing: patience, repetition, and being okay with being bad at something before you get good.</p>
+          <p>Stopped at eight, came back in January 2024. Now doing <strong>Tae Kwon Do</strong> consistently since July 2025. Ten years in and out — the foundation doesn't really leave you.</p>
+        </div>
+        <div class="timeline r delay1">
+          <div class="tl">
+            <div class="tl-spine"><div class="tl-dot"></div><div class="tl-line"></div></div>
+            <div><div class="tl-year">2016 · Age 6</div><div class="tl-desc">Began Tang Soo Do — same year as first Roblox scripts.</div></div>
+          </div>
+          <div class="tl">
+            <div class="tl-spine"><div class="tl-dot"></div><div class="tl-line"></div></div>
+            <div><div class="tl-year">~2018 · Age 8</div><div class="tl-desc">Stopped training. Life shifted.</div></div>
+          </div>
+          <div class="tl">
+            <div class="tl-spine"><div class="tl-dot"></div><div class="tl-line"></div></div>
+            <div><div class="tl-year">January 2024</div><div class="tl-desc">Returned to karate. Also briefly back to Tang Soo Do in March–April 2024.</div></div>
+          </div>
+          <div class="tl">
+            <div class="tl-spine"><div class="tl-dot"></div><div class="tl-line"></div></div>
+            <div><div class="tl-year">December 2024</div><div class="tl-desc">Paused.</div></div>
+          </div>
+          <div class="tl">
+            <div class="tl-spine"><div class="tl-dot"></div><div class="tl-line"></div></div>
+            <div><div class="tl-year">July 2025 – Present</div><div class="tl-desc">Back in it. Tae Kwon Do, training consistently.</div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SOCIALS -->
+  <div id="socials" style="padding:8rem 0">
+    <div class="inner">
+      <div class="section-title r">Find me online.</div>
+      <div class="socials-list" style="margin-top:3rem">
+
+        <a href="https://www.youtube.com/@festiveicing" target="_blank" class="social-row r">
+          <div class="social-platform">YouTube</div>
+          <div class="social-handle">@festiveicing</div>
+          <div class="social-arrow">↗</div>
+        </a>
+
+        <a href="https://discord.com/users/1409694701514395830" target="_blank" class="social-row r delay1">
+          <div class="social-platform">Discord</div>
+          <div class="social-handle">SirJolly</div>
+          <div class="social-arrow">↗</div>
+        </a>
+
+        <a href="https://planetsofhell.com" target="_blank" class="social-row r delay2">
+          <div class="social-platform">Game Website</div>
+          <div class="social-handle">planetsofhell.com</div>
+          <div class="social-arrow">↗</div>
+        </a>
+
+        <a href="https://www.roblox.com/communities/254329821/Collapse-Initiative-Inc#!/about" target="_blank" class="social-row r delay3">
+          <div class="social-platform">Roblox Studio</div>
+          <div class="social-handle">Collapse Initiative, Inc.</div>
+          <div class="social-arrow">↗</div>
+        </a>
+
+      </div>
+    </div>
+  </div>
+
+  <footer>SirJolly — Built by hand, 2026</footer>
+
+</div>
+
+<script>
+(function() {
+  const c = document.getElementById('bg');
+  const ctx = c.getContext('2d');
+  let W, H, pts = [];
+
+  function init() {
+    W = c.width = window.innerWidth;
+    H = c.height = window.innerHeight;
+    pts = [];
+    const n = Math.min(Math.floor(W * H / 7000), 200);
+    for (let i = 0; i < n; i++) {
+      pts.push({
+        x: Math.random() * W,
+        y: Math.random() * H,
+        r: Math.random() * 0.9 + 0.15,
+        phase: Math.random() * Math.PI * 2,
+        spd: Math.random() * 0.005 + 0.001,
+        dx: (Math.random() - 0.5) * 0.04,
+        dy: (Math.random() - 0.5) * 0.015
+      });
+    }
+  }
+
+  function frame() {
+    ctx.clearRect(0, 0, W, H);
+    for (const p of pts) {
+      p.phase += p.spd;
+      p.x += p.dx; p.y += p.dy;
+      if (p.x > W + 1) p.x = -1;
+      if (p.x < -1) p.x = W + 1;
+      if (p.y > H + 1) p.y = -1;
+      if (p.y < -1) p.y = H + 1;
+      const a = 0.18 + 0.32 * (0.5 + 0.5 * Math.sin(p.phase));
+      ctx.beginPath();
+      ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+      ctx.fillStyle = `rgba(180,200,255,${a})`;
+      ctx.fill();
+    }
+    requestAnimationFrame(frame);
+  }
+
+  window.addEventListener('resize', init, { passive: true });
+  init();
+  requestAnimationFrame(frame);
+})();
+
+(function() {
+  const nav = document.getElementById('nav');
+  window.addEventListener('scroll', () => {
+    nav.classList.toggle('solid', window.scrollY > 40);
+  }, { passive: true });
+})();
+
+(function() {
+  const ham = document.getElementById('ham');
+  const mob = document.getElementById('mob');
+  const cls = document.getElementById('mobClose');
+  const links = mob.querySelectorAll('.ml');
+  ham.addEventListener('click', () => mob.classList.add('on'));
+  cls.addEventListener('click', () => mob.classList.remove('on'));
+  links.forEach(l => l.addEventListener('click', () => mob.classList.remove('on')));
+})();
+
+(function() {
+  const obs = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) { e.target.classList.add('go'); obs.unobserve(e.target); }
+    });
+  }, { threshold: 0.1, rootMargin: '0px 0px -20px 0px' });
+
+  document.querySelectorAll('.r').forEach(el => obs.observe(el));
+
+  const skObs = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) { e.target.classList.add('go'); skObs.unobserve(e.target); }
+    });
+  }, { threshold: 0.15 });
+
+  document.querySelectorAll('.sk-row').forEach(el => skObs.observe(el));
+
+  document.querySelectorAll('.about-2col').forEach(el => {
+    el.querySelectorAll('.r').forEach(child => obs.observe(child));
+  });
+})();
+</script>
+</body>
+</html>
