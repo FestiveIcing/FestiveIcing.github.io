@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Starlight Solutions, Inc. | Cinematic Technology Partner</title>
+    <meta
+      name="description"
+      content="Starlight Solutions, Inc. builds cinematic digital experiences, AI systems, cloud platforms, and secure automation for ambitious teams."
+    />
+    <link rel="icon" href="./favicon.svg" type="image/svg+xml" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=Space+Grotesk:wght@400;500;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <a class="skip-link" href="#main">Skip to content</a>
+
+    <div class="page-effects" aria-hidden="true">
+      <div class="aurora aurora-one"></div>
+      <div class="aurora aurora-two"></div>
+      <div class="grid-haze"></div>
+    </div>
+
+    <div class="site-shell">
+      <header class="topbar">
+        <a class="brand" href="#hero" aria-label="Starlight Solutions home">
+          <span class="brand-mark"></span>
+          <span class="brand-copy">
+            <strong>Starlight Solutions, Inc.</strong>
+            <span>Systems that feel like tomorrow</span>
+          </span>
+        </a>
+
+        <nav class="nav" aria-label="Primary">
+          <a href="#capabilities">Capabilities</a>
+          <a href="#method">Method</a>
+          <a href="#impact">Impact</a>
+          <a href="#contact">Contact</a>
+        </nav>
+      </header>
+
+      <main id="main">
+        <section class="hero section" id="hero">
+          <div class="hero-copy reveal">
+            <p class="eyebrow">Cinematic digital engineering for modern operators</p>
+            <h1>Build the platform your next stage of growth demands.</h1>
+            <p class="lede">
+              Starlight Solutions, Inc. helps ambitious companies turn complex
+              technology into clear momentum across cloud, AI, product
+              engineering, and secure automation.
+            </p>
+
+            <div class="hero-actions">
+              <a class="button button-primary" href="#contact">Start a Project Brief</a>
+              <a class="button button-secondary" href="#capabilities">Explore Capabilities</a>
+            </div>
+
+            <div class="proof-strip" aria-label="Company proof points">
+              <article>
+                <strong>24/7</strong>
+                <span>Operational visibility</span>
+              </article>
+              <article>
+                <strong>4x</strong>
+                <span>Faster delivery cadence</span>
+              </article>
+              <article>
+                <strong>Zero</strong>
+                <span>Tolerance for generic execution</span>
+              </article>
+            </div>
+          </div>
+
+          <div class="hero-visual reveal">
+            <div class="signal-panel">
+              <div class="panel-chrome">
+                <span></span>
+                <span></span>
+                <span></span>
+              </div>
+
+              <canvas id="starfield" aria-hidden="true"></canvas>
+
+              <div class="signal-content">
+                <div class="signal-switch" role="tablist" aria-label="Service focus">
+                  <button
+                    class="signal-pill is-active"
+                    id="signal-tab-platform"
+                    type="button"
+                    role="tab"
+                    aria-selected="true"
+                    aria-controls="signal-panel"
+                    data-signal="platform"
+                  >
+                    Platform
+                  </button>
+                  <button
+                    class="signal-pill"
+                    id="signal-tab-ai"
+                    type="button"
+                    role="tab"
+                    aria-selected="false"
+                    aria-controls="signal-panel"
+                    data-signal="ai"
+                  >
+                    AI
+                  </button>
+                  <button
+                    class="signal-pill"
+                    id="signal-tab-security"
+                    type="button"
+                    role="tab"
+                    aria-selected="false"
+                    aria-controls="signal-panel"
+                    data-signal="security"
+                  >
+                    Security
+                  </button>
+                </div>
+
+                <section
+                  class="signal-story"
+                  id="signal-panel"
+                  role="tabpanel"
+                  aria-labelledby="signal-tab-platform"
+                >
+                  <p class="signal-label">Mission Focus</p>
+                  <h2 id="signal-title">Platform modernization with operational clarity</h2>
+                  <p id="signal-description">
+                    We replace fragile systems with resilient architecture, measurable
+                    delivery standards, and visibility that leadership can actually use.
+                  </p>
+                  <ul id="signal-list" class="signal-list">
+                    <li>Cloud migration strategy with measurable milestones</li>
+                    <li>Unified data flows for product and operations teams</li>
+                    <li>Launch-grade observability without interface clutter</li>
+                  </ul>
+                </section>
+
+                <div class="signal-metrics" aria-live="polite">
+                  <article class="signal-metric">
+                    <span>Launch velocity</span>
+                    <strong id="metric-one">+38%</strong>
+                  </article>
+                  <article class="signal-metric">
+                    <span>Incident noise</span>
+                    <strong id="metric-two">-41%</strong>
+                  </article>
+                  <article class="signal-metric">
+                    <span>Executive clarity</span>
+                    <strong id="metric-three">High signal</strong>
+                  </article>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section class="section" id="capabilities">
+          <div class="section-heading reveal">
+            <p class="eyebrow">Capabilities</p>
+            <h2>A cinematic bento-grid built around the moments that move companies forward.</h2>
+            <p>
+              The installed design skill recommended a dense, scannable showcase. This
+              layout turns that guidance into a dark, high-contrast interface with motion,
+              depth, and disciplined hierarchy.
+            </p>
+          </div>
+
+          <div class="bento-grid">
+            <article class="card card-feature card-large reveal" data-tilt>
+              <p class="card-kicker">Platform Engineering</p>
+              <h3>Modern infrastructure without operational fog</h3>
+              <p>
+                Cloud foundations, deployment pipelines, telemetry, and architecture decisions
+                tuned for teams that need reliability without slowing product velocity.
+              </p>
+              <div class="card-orbit">
+                <span>Cloud</span>
+                <span>Telemetry</span>
+                <span>Delivery</span>
+              </div>
+            </article>
+
+            <article class="card reveal" data-tilt>
+              <p class="card-kicker">AI Systems</p>
+              <h3>Automation that serves operators, not vanity demos</h3>
+              <p>
+                Internal copilots, workflow orchestration, retrieval systems, and decision
+                support tooling grounded in useful outcomes.
+              </p>
+            </article>
+
+            <article class="card reveal" data-tilt>
+              <p class="card-kicker">Secure by Design</p>
+              <h3>Security signals embedded into the product rhythm</h3>
+              <p>
+                Guardrails, audit trails, access reviews, and secure defaults that reduce
+                risk without burying teams in process theater.
+              </p>
+            </article>
+
+            <article class="card reveal" data-tilt>
+              <p class="card-kicker">Product Velocity</p>
+              <h3>Interfaces that look premium and communicate faster</h3>
+              <p>
+                Executive dashboards, customer-facing portals, and internal tools designed
+                to feel intentional instead of interchangeable.
+              </p>
+            </article>
+
+            <article class="card card-wide reveal" data-tilt>
+              <p class="card-kicker">Decision Support</p>
+              <h3>Readable metrics, observable systems, and calmer operations</h3>
+              <p>
+                We design with scannability first: the right contrast, the right pacing, and
+                the right density so leaders can move quickly without losing context.
+              </p>
+            </article>
+          </div>
+        </section>
+
+        <section class="section" id="method">
+          <div class="section-heading reveal">
+            <p class="eyebrow">Method</p>
+            <h2>Four phases from signal detection to launch discipline.</h2>
+          </div>
+
+          <div class="timeline-grid">
+            <article class="timeline-card reveal">
+              <span class="timeline-step">01</span>
+              <h3>Diagnose</h3>
+              <p>Map bottlenecks, risk surfaces, stakeholder friction, and where the signal gets lost.</p>
+            </article>
+            <article class="timeline-card reveal">
+              <span class="timeline-step">02</span>
+              <h3>Design</h3>
+              <p>Translate goals into architecture, interface systems, and execution standards that teams can follow.</p>
+            </article>
+            <article class="timeline-card reveal">
+              <span class="timeline-step">03</span>
+              <h3>Deploy</h3>
+              <p>Ship in measured increments with observability, progressive rollout logic, and fast feedback loops.</p>
+            </article>
+            <article class="timeline-card reveal">
+              <span class="timeline-step">04</span>
+              <h3>Scale</h3>
+              <p>Codify the wins into templates, operating rituals, and automation paths that hold up under growth.</p>
+            </article>
+          </div>
+        </section>
+
+        <section class="section" id="impact">
+          <div class="section-heading reveal">
+            <p class="eyebrow">Impact</p>
+            <h2>A control-room view of what better systems actually change.</h2>
+          </div>
+
+          <div class="impact-grid">
+            <article class="impact-card reveal">
+              <div class="impact-copy">
+                <p class="card-kicker">Delivery Confidence</p>
+                <h3>Teams move faster when the platform stops fighting them.</h3>
+                <p>
+                  Infrastructure, tooling, and interface decisions should reduce drag in the
+                  background, not create a second job for the people shipping value.
+                </p>
+              </div>
+
+              <div class="progress-stack" aria-label="Performance indicators">
+                <div class="progress-row">
+                  <div class="progress-label">
+                    <span>Release reliability</span>
+                    <strong>92%</strong>
+                  </div>
+                  <div class="progress-track">
+                    <span class="progress-fill" data-progress="92"></span>
+                  </div>
+                </div>
+
+                <div class="progress-row">
+                  <div class="progress-label">
+                    <span>Automation coverage</span>
+                    <strong>81%</strong>
+                  </div>
+                  <div class="progress-track">
+                    <span class="progress-fill" data-progress="81"></span>
+                  </div>
+                </div>
+
+                <div class="progress-row">
+                  <div class="progress-label">
+                    <span>Stakeholder visibility</span>
+                    <strong>88%</strong>
+                  </div>
+                  <div class="progress-track">
+                    <span class="progress-fill" data-progress="88"></span>
+                  </div>
+                </div>
+              </div>
+            </article>
+
+            <article class="impact-mini reveal" data-tilt>
+              <p class="card-kicker">Ops</p>
+              <h3>Fewer blind spots</h3>
+              <p>High-signal dashboards, cleaner alerting, better escalation paths.</p>
+            </article>
+
+            <article class="impact-mini reveal" data-tilt>
+              <p class="card-kicker">Leadership</p>
+              <h3>Clearer decisions</h3>
+              <p>Executive reporting that translates technical movement into business terms.</p>
+            </article>
+
+            <article class="impact-mini reveal" data-tilt>
+              <p class="card-kicker">Product</p>
+              <h3>Sharper launch quality</h3>
+              <p>Accessible interfaces, stronger motion discipline, and better user comprehension.</p>
+            </article>
+          </div>
+        </section>
+
+        <section class="section" id="contact">
+          <div class="cta-panel reveal">
+            <div class="cta-copy">
+              <p class="eyebrow">Contact</p>
+              <h2>Open a project brief and point us at the system that needs to change.</h2>
+              <p>
+                This demo site does not assume a backend. The form below generates a polished
+                email draft so your team can continue the conversation immediately.
+              </p>
+            </div>
+
+            <form class="contact-form" id="contactForm">
+              <label>
+                Name
+                <input id="name" name="name" type="text" placeholder="Your name" required />
+              </label>
+
+              <label>
+                Work Email
+                <input id="email" name="email" type="email" placeholder="you@company.com" required />
+              </label>
+
+              <label>
+                Project Focus
+                <select id="focus" name="focus">
+                  <option value="Platform modernization">Platform modernization</option>
+                  <option value="AI systems">AI systems</option>
+                  <option value="Secure automation">Secure automation</option>
+                  <option value="Executive dashboards">Executive dashboards</option>
+                </select>
+              </label>
+
+              <label>
+                Brief
+                <textarea
+                  id="brief"
+                  name="brief"
+                  rows="5"
+                  placeholder="What needs to improve, what is blocked, and what outcome matters most?"
+                  required
+                ></textarea>
+              </label>
+
+              <div class="form-actions">
+                <button class="button button-primary" type="submit">Create Inquiry Draft</button>
+                <p id="formStatus" class="form-status" aria-live="polite"></p>
+              </div>
+            </form>
+          </div>
+        </section>
+      </main>
+
+      <footer class="footer">
+        <p>Starlight Solutions, Inc. builds high-signal systems, cinematic interfaces, and calmer operations.</p>
+      </footer>
+    </div>
+
+    <script src="./script.js"></script>
+  </body>
+</html>
